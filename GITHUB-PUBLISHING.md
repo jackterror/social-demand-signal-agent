@@ -11,14 +11,15 @@
 ## Before publishing
 
 - [ ] Run the full test suite without skipped server tests.
-- [ ] Run Agent Skills validation.
+- [x] Run Agent Skills validation.
 - [x] Complete the clean-install and archive audits.
 - [x] Confirm release screenshots contain fixture data and no credentials.
 - [x] Run `npm install`, `npx playwright install chromium`, and `npm run capture`.
 - [x] Inspect all three release images and add the two screenshots to README.
+- [ ] Run the isolated with-skill versus baseline functional evals.
 - [ ] Run one authenticated SocialCrawl connection and current-source contract check.
-- [ ] Confirm the Git author and commit message.
-- [ ] Review README links and commands from the source archive.
+- [x] Confirm the Git author and commit messages.
+- [x] Review README links and commands from the source archive.
 - [ ] Create the repository only after Jack approves.
 - [ ] Push `main` only after Jack approves.
 - [ ] Create the release only after Jack approves.
