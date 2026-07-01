@@ -1,5 +1,5 @@
 import {spawn} from "node:child_process";
-import {mkdtemp, mkdir, rm} from "node:fs/promises";
+import {mkdtemp, mkdir, readFile, rm, writeFile} from "node:fs/promises";
 import {tmpdir} from "node:os";
 import path from "node:path";
 import {pathToFileURL} from "node:url";
@@ -89,6 +89,10 @@ try {
     headers: {"X-SDSA-Request": "local", "Content-Type": "application/json"},
   });
   if (!credential.ok()) throw new Error(`Credential setup failed: ${credential.status()}`);
+  const credentialPayload = await credential.text();
+  if (credentialPayload.includes(testCredential)) throw new Error("Credential response exposed the provider key");
+  const setupWithCredential = await page.request.get(`${base}/api/setup`);
+  if ((await setupWithCredential.text()).includes(testCredential)) throw new Error("Setup response exposed the provider key");
   await page.reload({waitUntil: "networkidle"});
   await page.route("**/api/provider/test", (route) => route.fulfill({
     status: 502,
@@ -108,16 +112,61 @@ try {
   });
   if (!credentialRemoval.ok()) throw new Error(`Credential cleanup failed: ${credentialRemoval.status()}`);
 
+  const rejectedMutation = await page.request.post(`${base}/api/reset/demo`, {data: {}});
+  if (rejectedMutation.status() !== 400) throw new Error("Mutation without the local request header was accepted");
+
+  const fixtureProfile = JSON.parse(await readFile(path.join(root, "assets", "fixtures", "demo-profile.json"), "utf8"));
+  fixtureProfile.profile_status = "setup";
+  const completedSetup = await page.request.post(`${base}/api/setup/save`, {
+    data: {profile: fixtureProfile, complete: true},
+    headers: {"X-SDSA-Request": "local", "Content-Type": "application/json"},
+  });
+  const completedPayload = await completedSetup.json();
+  if (!completedSetup.ok() || completedPayload.profile_status !== "ready") {
+    throw new Error(`Completed setup was not marked ready: ${completedSetup.status()}`);
+  }
+  const freshSignals = JSON.parse(await readFile(path.join(root, "assets", "fixtures", "signals.json"), "utf8"));
+  const currentTimestamp = new Date().toISOString();
+  for (const signal of freshSignals) signal.published_at = currentTimestamp;
+  const freshSignalPath = path.join(temporary, "signals.json");
+  await writeFile(freshSignalPath, `${JSON.stringify(freshSignals, null, 2)}\n`, "utf8");
+  const collected = await page.request.post(`${base}/api/collect`, {
+    data: {provider: "json", source: freshSignalPath},
+    headers: {"X-SDSA-Request": "local", "Content-Type": "application/json"},
+  });
+  const collectedPayload = await collected.json();
+  if (!collected.ok() || collectedPayload.stored !== 5) throw new Error("JSON collection did not store five signals");
+  const exported = await page.request.post(`${base}/api/export`, {
+    data: {},
+    headers: {"X-SDSA-Request": "local", "Content-Type": "application/json"},
+  });
+  const exportPayload = await exported.json();
+  if (!exported.ok() || exportPayload.exported !== 3) throw new Error("Agent export did not contain three reviewable signals");
+  const resetSetup = await page.request.post(`${base}/api/reset/setup`, {
+    data: {},
+    headers: {"X-SDSA-Request": "local", "Content-Type": "application/json"},
+  });
+  const resetPayload = await resetSetup.json();
+  if (!resetSetup.ok() || resetPayload.setup.readiness.profile_status !== "setup") {
+    throw new Error(`Company setup reset failed: ${resetSetup.status()}`);
+  }
+
   const demo = await page.request.post(`${base}/api/reset/demo`, {
     data: {},
     headers: {"X-SDSA-Request": "local", "Content-Type": "application/json"},
   });
   if (!demo.ok()) throw new Error(`Fixture setup failed: ${demo.status()}`);
+  const demoPayload = await demo.json();
+  if (demoPayload.signals !== 5) throw new Error(`Fixture setup returned ${demoPayload.signals} signals instead of 5`);
   await page.reload({waitUntil: "networkidle"});
   await page.getByRole("button", {name: "Review Queue"}).click();
   await assertText(page.getByRole("heading", {name: "Review Queue"}), "Review Queue", "Populated review state");
   await assertNoHorizontalOverflow(page, "Desktop review queue");
   await page.screenshot({path: path.join(output, "review-queue.png")});
+
+  const state = await page.request.get(`${base}/api/state`);
+  const statePayload = await state.json();
+  if (!state.ok() || statePayload.summary.total !== 5) throw new Error("Populated state did not retain five fixture signals");
 
   await page.getByRole("button", {name: "Experiments"}).focus();
   await page.keyboard.press("Enter");
