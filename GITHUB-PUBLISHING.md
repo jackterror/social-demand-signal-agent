@@ -12,10 +12,10 @@
 
 - [ ] Run the full test suite without skipped server tests.
 - [ ] Run Agent Skills validation.
-- [ ] Complete the clean-install and archive audits.
-- [ ] Confirm release screenshots contain fixture data and no credentials.
-- [ ] Run `npm install`, `npx playwright install chromium`, and `npm run capture`.
-- [ ] Inspect all three release images and add the two screenshots to README.
+- [x] Complete the clean-install and archive audits.
+- [x] Confirm release screenshots contain fixture data and no credentials.
+- [x] Run `npm install`, `npx playwright install chromium`, and `npm run capture`.
+- [x] Inspect all three release images and add the two screenshots to README.
 - [ ] Run one authenticated SocialCrawl connection and current-source contract check.
 - [ ] Confirm the Git author and commit message.
 - [ ] Review README links and commands from the source archive.

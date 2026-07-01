@@ -23,7 +23,7 @@ jobs:
           node --check tools/capture-release-assets.mjs
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
-      - name: Audit release tree
-        run: python3 scripts/release_audit.py .
       - name: Build release archives
         run: python3 scripts/package_release.py
+      - name: Audit release tree and archives
+        run: python3 scripts/release_audit.py .

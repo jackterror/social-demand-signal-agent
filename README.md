@@ -28,6 +28,16 @@ On their own, neither handles the work between signal and learning. A useful sig
 
 This project connects that work without giving an agent permission to post. Risky cases move to suppression or escalation. Humans control every response. The system learns only from outcomes that were observed or entered by a reviewer.
 
+## Product views
+
+Guided setup collects the company policy, listening targets, safety rules, and experiment design before live collection can begin.
+
+![Guided company and listening setup](docs/images/onboarding.png)
+
+Fixture mode shows the complete review workflow without an account or provider key.
+
+![Human review queue with fixture demand signals](docs/images/review-queue.png)
+
 ## Quick start
 
 Requires Python 3.11 or newer. The application uses the Python standard library.
@@ -160,13 +170,13 @@ The host agent handles contextual judgment, classification, and writing. Scripts
 
 ```bash
 python3 -m unittest discover -s tests -v
-python3 scripts/release_audit.py .
 python3 scripts/package_release.py
+python3 scripts/release_audit.py .
 ```
 
 The suite covers onboarding, migration, credentials, provider contracts, routing, assignment, persistence, review, experiment interpretation, security boundaries, and release packaging.
 
-Generate credential-free release screenshots and the GitHub social preview with:
+Run the browser state checks and regenerate credential-free release screenshots and the GitHub social preview with:
 
 ```bash
 npm install

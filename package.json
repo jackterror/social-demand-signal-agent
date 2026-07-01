@@ -7,6 +7,6 @@
     "capture": "node tools/capture-release-assets.mjs"
   },
   "devDependencies": {
-    "playwright": "1.53.0"
+    "playwright": "^1.61.1"
   }
 }
