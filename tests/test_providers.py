@@ -11,7 +11,7 @@ from unittest import mock
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from sdsa.providers import collect_socialcrawl, dedupe, load_json_records, normalize_record
+from sdsa.providers import collect_socialcrawl, dedupe, load_json_records, normalize_record, test_socialcrawl
 
 
 class FakeResponse:
@@ -68,6 +68,14 @@ class ProviderTests(unittest.TestCase):
         })
         rows, _ = collect_socialcrawl("test-key", ["shared support queue"], ["forum"], 10)
         self.assertEqual(rows, [])
+
+    @mock.patch("urllib.request.urlopen")
+    def test_socialcrawl_connection_contract(self, urlopen: mock.Mock) -> None:
+        urlopen.return_value = FakeResponse({"success": True, "credits_remaining": 100})
+        result = test_socialcrawl("test-key")
+        self.assertTrue(result["connected"])
+        request = urlopen.call_args.args[0]
+        self.assertIn("/credits/balance", request.full_url)
 
 
 if __name__ == "__main__":

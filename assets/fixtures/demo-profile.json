@@ -1,9 +1,12 @@
 {
+  "schema_version": 2,
   "profile_status": "demo",
   "company": {
     "name": "RelayDesk",
+    "industry": "Customer support software",
     "product": "shared customer-message workspace",
-    "description": "RelayDesk helps small support teams organize customer messages in one queue."
+    "description": "RelayDesk helps small support teams organize customer messages in one queue.",
+    "website": "https://example.com/relaydesk"
   },
   "audience": {
     "description": "support leaders at small software companies",

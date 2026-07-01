@@ -1,4 +1,4 @@
 interface:
   display_name: "Social Demand Signal Agent"
   short_description: "Turn social listening into reviewed action"
-  default_prompt: "Use $social-demand-signal-agent to find public customer pain, draft governed A/B responses, and build a human-reviewed learning loop for my company."
+  default_prompt: "Use $social-demand-signal-agent to set up a human-reviewed social listening and response-learning workflow for my company."

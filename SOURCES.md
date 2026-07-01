@@ -14,6 +14,11 @@ Social Demand Signal Agent is an original implementation informed by the followi
 - [Python 3 documentation](https://docs.python.org/3/)
 - [SQLite documentation](https://www.sqlite.org/docs.html)
 
+## Live provider
+
+- [SocialCrawl API documentation](https://www.socialcrawl.dev/docs)
+- [SocialCrawl authentication](https://www.socialcrawl.dev/docs/authentication)
+
 ## Experiment interpretation
 
 - Edwin B. Wilson, "Probable Inference, the Law of Succession, and Statistical Inference," Journal of the American Statistical Association, 1927.

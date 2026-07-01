@@ -10,93 +10,187 @@
   <header class="topbar">
     <div>
       <p class="eyebrow">Social Demand Signal Agent</p>
-      <h1 id="company-name">Loading</h1>
+      <h1 id="company-name">Loading setup</h1>
     </div>
-    <nav class="tabs" aria-label="Views">
-      <button class="tab active" data-view="queue">Review Queue</button>
+    <nav class="tabs" aria-label="Workspace views">
+      <button class="tab active" data-view="setup">Setup</button>
+      <button class="tab" data-view="queue">Review Queue</button>
       <button class="tab" data-view="experiments">Experiments</button>
     </nav>
   </header>
 
   <main>
-    <section class="status-band" aria-label="Summary">
-      <div class="metric"><span>Signals</span><strong id="metric-total">0</strong></div>
-      <div class="metric"><span>Reviewable</span><strong id="metric-reviewable">0</strong></div>
-      <div class="metric"><span>Drafted</span><strong id="metric-drafted">0</strong></div>
-      <div class="metric"><span>Approved</span><strong id="metric-approved">0</strong></div>
-      <div class="metric"><span>Escalated</span><strong id="metric-escalated">0</strong></div>
+    <section class="readiness-band" aria-label="Listening readiness">
+      <div class="readiness-item"><span>Company profile</span><strong id="profile-readiness">Checking</strong></div>
+      <div class="readiness-item"><span>Provider</span><strong id="provider-readiness">Checking</strong></div>
+      <div class="readiness-item"><span>Ready to Listen</span><strong id="listening-readiness">Checking</strong></div>
     </section>
 
     <section id="error-banner" class="error-banner hidden" role="alert"></section>
 
-    <section id="queue-view" class="view active">
-      <div class="control-band">
-        <label>Provider
-          <select id="provider-select">
-            <option value="fixture">Fixture</option>
-            <option value="json">JSON import</option>
-            <option value="socialcrawl">SocialCrawl</option>
-          </select>
-        </label>
-        <label class="source-field">JSON source path
-          <input id="source-input" type="text" placeholder="/path/to/signals.json">
-        </label>
-        <button id="collect-button" class="button approve">Collect</button>
-        <button id="export-button" class="button secondary">Export Agent Batch</button>
-        <span id="control-status" class="control-status"></span>
-      </div>
-      <div class="section-heading">
+    <section id="setup-view" class="view active">
+      <div class="section-heading setup-heading">
         <div>
-          <p class="eyebrow">Human Review</p>
-          <h2>Review Queue</h2>
+          <p class="eyebrow">First Run</p>
+          <h2>Define what your company needs to hear</h2>
         </div>
-        <button id="refresh-button" class="button secondary">Refresh</button>
+        <div class="setup-progress"><span id="setup-progress-label">Checking setup</span><progress id="setup-progress" max="100" value="0"></progress></div>
       </div>
-      <div id="queue" class="queue" aria-live="polite"></div>
+
+      <div id="setup-errors" class="validation-summary hidden" role="alert" tabindex="-1"></div>
+
+      <form id="setup-form" novalidate>
+        <fieldset class="setup-section">
+          <legend>Company</legend>
+          <div class="form-grid two-column">
+            <label>Company name<input id="company-input" autocomplete="organization" required></label>
+            <label>Industry<input id="industry-input" placeholder="Customer support software" required></label>
+            <label>Product or service<input id="product-input" required></label>
+            <label>Company website<input id="website-input" type="url" placeholder="https://example.com" required></label>
+            <label class="wide">What the company provides<textarea id="description-input" rows="3" required></textarea><small>Use facts a public response can defend.</small></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="setup-section">
+          <legend>Audience and demand</legend>
+          <div class="form-grid two-column">
+            <label class="wide">Target audience<textarea id="audience-input" rows="2" required></textarea></label>
+            <label>Pain points<textarea id="pain-input" rows="5" required></textarea><small>One customer phrase per line.</small></label>
+            <label>Intent signals<textarea id="intent-input" rows="5" required></textarea><small>One phrase that shows active need per line.</small></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="setup-section">
+          <legend>Listening</legend>
+          <div class="form-grid two-column">
+            <label>Search queries<textarea id="queries-input" rows="6" required></textarea><small>One focused query per line.</small></label>
+            <div>
+              <span class="field-label">Platforms</span>
+              <div id="platform-options" class="check-grid" role="group" aria-label="Listening platforms"></div>
+              <small>Availability depends on current provider results.</small>
+            </div>
+            <label>Freshness window in minutes<input id="freshness-input" type="number" min="1" required></label>
+            <label>Maximum records per run<input id="max-items-input" type="number" min="1" required></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="setup-section">
+          <legend>Offer and voice</legend>
+          <div class="form-grid two-column">
+            <label>Next step you can offer<textarea id="offer-input" rows="3" required></textarea></label>
+            <label>CTA destination<input id="cta-input" type="url" placeholder="https://example.com/start" required></label>
+            <label>Voice attributes<textarea id="voice-input" rows="4" required></textarea><small>One attribute per line.</small></label>
+            <label>Affiliation disclosure<textarea id="disclosure-input" rows="4" required></textarea><small>State the relationship plainly.</small></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="setup-section">
+          <legend>Claims and safety</legend>
+          <div class="form-grid two-column">
+            <label>Approved claims<textarea id="approved-input" rows="5" required></textarea><small>One verified claim per line.</small></label>
+            <label>Forbidden claims<textarea id="forbidden-input" rows="5" required></textarea><small>One claim the system must never make per line.</small></label>
+            <label>Exclude from outreach<textarea id="exclusions-input" rows="5" required></textarea></label>
+            <label>Escalate for specialist review<textarea id="escalations-input" rows="5" required></textarea></label>
+            <label>Maximum responses per author in 24 hours<input id="frequency-input" type="number" min="1" required></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="setup-section">
+          <legend>Message experiments</legend>
+          <div id="family-list" class="family-list"></div>
+          <button id="add-family-button" class="button secondary" type="button">Add message family</button>
+          <div class="form-grid three-column experiment-fields">
+            <label>Conversion event<input id="primary-input" required></label>
+            <label>Guardrail event<input id="guardrail-input" required></label>
+            <label>Minimum sample per variant<input id="sample-input" type="number" min="1" required></label>
+          </div>
+        </fieldset>
+
+        <section class="setup-section provider-section" aria-labelledby="provider-heading">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">Live Provider</p><h3 id="provider-heading">SocialCrawl</h3></div>
+            <span id="provider-state" class="status-text">Checking</span>
+          </div>
+          <div class="provider-grid">
+            <label>API key<input id="api-key-input" type="password" autocomplete="off" placeholder="sc_..."></label>
+            <div class="button-row">
+              <button id="save-key-button" class="button approve" type="button">Save key</button>
+              <button id="test-key-button" class="button secondary" type="button">Test connection</button>
+              <button id="remove-key-button" class="button reject" type="button">Remove key</button>
+            </div>
+          </div>
+          <p class="provider-links"><a id="get-key-link" target="_blank" rel="noopener noreferrer">Get a SocialCrawl key</a><a id="provider-docs-link" target="_blank" rel="noopener noreferrer">Authentication guide</a></p>
+          <p id="provider-message" class="control-status" aria-live="polite"></p>
+        </section>
+
+        <section class="setup-section listening-preview" aria-labelledby="preview-heading">
+          <p class="eyebrow">Confirmation</p>
+          <h3 id="preview-heading">Listening preview</h3>
+          <div id="setup-preview" class="preview-grid"></div>
+        </section>
+
+        <div class="setup-actions">
+          <div class="button-row">
+            <button id="save-progress-button" class="button secondary" type="button">Save progress</button>
+            <button id="complete-setup-button" class="button approve" type="submit">Complete setup</button>
+          </div>
+          <p id="setup-message" class="control-status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section class="data-actions" aria-label="Setup data controls">
+        <button id="export-profile-button" class="button secondary" type="button">Export profile</button>
+        <button id="import-profile-button" class="button secondary" type="button">Import profile</button>
+        <input id="import-profile-file" class="hidden" type="file" accept="application/json,.json">
+        <button id="load-demo-button" class="button event" type="button">Load fixture demo</button>
+        <button id="reset-setup-button" class="button reject" type="button">Reset company setup</button>
+      </section>
+    </section>
+
+    <section id="queue-view" class="view">
+      <section class="status-band" aria-label="Queue summary">
+        <div class="metric"><span>Signals</span><strong id="metric-total">0</strong></div>
+        <div class="metric"><span>Reviewable</span><strong id="metric-reviewable">0</strong></div>
+        <div class="metric"><span>Drafted</span><strong id="metric-drafted">0</strong></div>
+        <div class="metric"><span>Approved</span><strong id="metric-approved">0</strong></div>
+        <div class="metric"><span>Escalated</span><strong id="metric-escalated">0</strong></div>
+      </section>
+      <div class="control-band">
+        <label>Provider<select id="provider-select"><option value="socialcrawl">SocialCrawl</option><option value="json">JSON import</option><option value="fixture">Fixture</option></select></label>
+        <label class="source-field">JSON source path<input id="source-input" type="text" placeholder="/path/to/signals.json"></label>
+        <button id="collect-button" class="button approve">Collect</button>
+        <button id="export-button" class="button secondary">Export agent batch</button>
+        <span id="control-status" class="control-status" aria-live="polite"></span>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">Human Review</p><h2>Review Queue</h2></div><button id="refresh-button" class="button secondary">Refresh</button></div>
+      <div id="queue" class="queue" aria-live="polite"><div class="empty">Loading review queue.</div></div>
     </section>
 
     <section id="experiments-view" class="view">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Observed Outcomes</p>
-          <h2>Experiment Readout</h2>
-        </div>
-        <div class="event-key"><span id="primary-event"></span><span id="guardrail-event"></span></div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Family</th><th>Platform</th><th>Status</th><th>A exposed</th><th>A rate</th><th>B exposed</th><th>B rate</th><th>Leader</th><th>Winner</th>
-            </tr>
-          </thead>
-          <tbody id="experiment-body"></tbody>
-        </table>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">Observed Outcomes</p><h2>Experiment Readout</h2></div><div class="event-key"><span id="primary-event"></span><span id="guardrail-event"></span></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Family</th><th>Platform</th><th>Status</th><th>A exposed</th><th>A rate</th><th>B exposed</th><th>B rate</th><th>Leader</th><th>Winner</th></tr></thead><tbody id="experiment-body"></tbody></table></div>
     </section>
   </main>
 
+  <template id="family-template">
+    <section class="family-row">
+      <div class="family-heading"><strong>Message family</strong><button class="text-button remove-family" type="button">Remove</button></div>
+      <div class="form-grid two-column">
+        <label>Family name<input data-family-field="name" required></label>
+        <label>Routing phrases<textarea data-family-field="signals" rows="3" required></textarea></label>
+        <label>Variant A hypothesis<textarea data-family-field="hypothesis_a" rows="3" required></textarea></label>
+        <label>Variant B hypothesis<textarea data-family-field="hypothesis_b" rows="3" required></textarea></label>
+      </div>
+    </section>
+  </template>
+
   <template id="signal-template">
     <article class="signal">
-      <div class="signal-meta">
-        <div class="badges"></div>
-        <a class="source-link" target="_blank" rel="noopener noreferrer">Original source</a>
-      </div>
+      <div class="signal-meta"><div class="badges"></div><a class="source-link" target="_blank" rel="noopener noreferrer">Original source</a></div>
       <p class="signal-text"></p>
-      <div class="signal-details">
-        <span class="author"></span><span class="family"></span><span class="score"></span><span class="data-label"></span>
-      </div>
-      <div class="draft-panel hidden">
-        <div class="assigned-row"><span>Assigned variant</span><strong class="assigned-variant"></strong></div>
-        <textarea class="draft-body" rows="5"></textarea>
-        <details>
-          <summary>Alternate and rationale</summary>
-          <div class="alternate-copy"></div>
-          <p class="rationale"></p>
-        </details>
-      </div>
-      <div class="actions"></div>
-      <p class="decision-note"></p>
+      <div class="signal-details"><span class="author"></span><span class="family"></span><span class="score"></span><span class="data-label"></span></div>
+      <div class="draft-panel hidden"><div class="assigned-row"><span>Assigned variant</span><strong class="assigned-variant"></strong></div><textarea class="draft-body" rows="5"></textarea><details><summary>Alternate and rationale</summary><div class="alternate-copy"></div><p class="rationale"></p></details></div>
+      <div class="actions"></div><p class="decision-note"></p>
     </article>
   </template>
 

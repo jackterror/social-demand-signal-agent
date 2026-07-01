@@ -1,0 +1,12 @@
+{
+  "name": "social-demand-signal-agent-release-tools",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Development-only browser verification and release asset capture.",
+  "scripts": {
+    "capture": "node tools/capture-release-assets.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.53.0"
+  }
+}

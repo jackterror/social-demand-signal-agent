@@ -1,65 +1,47 @@
 {
-  "profile_status": "demo",
+  "schema_version": 2,
+  "profile_status": "setup",
   "company": {
-    "name": "Replace with your company",
-    "product": "Replace with your product or service",
-    "description": "Replace with a factual description of what you provide."
+    "name": "",
+    "industry": "",
+    "product": "",
+    "description": "",
+    "website": ""
   },
   "audience": {
-    "description": "Replace with the people or teams you serve.",
-    "pain_points": [
-      "replace with a phrase customers use when describing the problem"
-    ],
-    "intent_signals": [
-      "replace with a phrase that signals active interest or need"
-    ]
+    "description": "",
+    "pain_points": [],
+    "intent_signals": []
   },
   "offer": {
-    "summary": "Replace with the next step you can honestly offer.",
-    "cta_url": "https://example.com/start"
+    "summary": "",
+    "cta_url": ""
   },
   "voice": {
-    "attributes": [
-      "clear",
-      "direct"
-    ]
+    "attributes": []
   },
-  "disclosure": "Replace with a plain affiliation disclosure.",
+  "disclosure": "",
   "claims": {
-    "approved": [
-      "replace with a claim your team has approved"
-    ],
-    "forbidden": [
-      "replace with a claim the system must never make"
-    ]
+    "approved": [],
+    "forbidden": []
   },
   "safety": {
-    "exclusions": [
-      "replace with content that is irrelevant to outreach"
-    ],
-    "escalation_terms": [
-      "replace with a topic that requires specialist review"
-    ],
+    "exclusions": [],
+    "escalation_terms": [],
     "max_responses_per_author_24h": 1
   },
   "listening": {
-    "queries": [
-      "replace with a search query"
-    ],
-    "platforms": [
-      "reddit"
-    ],
+    "queries": [],
+    "platforms": [],
     "freshness_minutes": 60,
     "max_items": 50
   },
   "response_families": [
     {
-      "name": "general need",
-      "signals": [
-        "replace with a routing phrase"
-      ],
-      "hypothesis_a": "State what Variant A changes and why.",
-      "hypothesis_b": "State what Variant B changes and why."
+      "name": "",
+      "signals": [],
+      "hypothesis_a": "",
+      "hypothesis_b": ""
     }
   ],
   "experiment": {

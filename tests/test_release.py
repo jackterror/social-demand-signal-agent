@@ -22,6 +22,18 @@ class ReleaseTests(unittest.TestCase):
         self.assertIn("error-banner", html)
         self.assertIn("No signals in the current workspace", js)
         self.assertIn("renderSignal", js)
+        self.assertIn("setup-view", html)
+        self.assertIn("Ready to Listen", html)
+        self.assertIn("Get a SocialCrawl key", html)
+        self.assertIn("clientErrors", js)
+        self.assertIn("updateCollectAvailability", js)
+
+    def test_frontend_has_accessible_setup_contracts(self) -> None:
+        html = (ROOT / "assets/index.html").read_text()
+        self.assertIn('aria-label="Listening readiness"', html)
+        self.assertIn('role="alert"', html)
+        self.assertIn('type="password"', html)
+        self.assertIn('autocomplete="off"', html)
 
 
 if __name__ == "__main__":

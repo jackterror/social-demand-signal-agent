@@ -5,7 +5,7 @@ Contributions are welcome when they preserve the project's core boundaries: comp
 ## Before opening a pull request
 
 1. Create a focused branch.
-2. Keep fixtures synthetic and free of personal or customer data.
+2. Keep fixtures synthetic and free of personal data, customer data, and credentials.
 3. Add or update tests for changed behavior.
 4. Run the full checks:
 
@@ -25,6 +25,7 @@ python3 scripts/package_release.py
 - first-party outcome integrations
 - experiment analysis that preserves message-family and platform context
 - accessibility, browser coverage, and documentation
+- onboarding, migration, and credential-redaction coverage
 
 ## Boundaries
 

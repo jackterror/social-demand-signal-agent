@@ -11,3 +11,9 @@
 - Added Agent Skills instructions, references, tests, evals, audits, and packaging.
 - Added social-listening-first public positioning and GitHub release documentation.
 - Added package, creator, sources, contribution, and security documentation.
+- Added guided first-run onboarding with resumable setup, validation, and listening preview.
+- Added explicit industry, website, and profile schema version fields.
+- Added profile migration backups and secret-free profile import and export.
+- Added automatic `.env` loading, credential save, replace, remove, and connection testing.
+- Added profile, provider, and live-listening readiness states plus CLI diagnostics.
+- Added loopback-only serving, same-origin mutation controls, response hardening, and credential-redaction tests.

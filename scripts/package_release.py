@@ -8,7 +8,7 @@ import zipfile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 VERSION = "0.1.0"
-EXCLUDED_PARTS = {".git", "dist", "runtime", "__pycache__", "eval-workspace"}
+EXCLUDED_PARTS = {".git", "dist", "runtime", "__pycache__", "eval-workspace", "node_modules"}
 EXCLUDED_NAMES = {".DS_Store", ".env"}
 SKILL_PREFIXES = {"SKILL.md", "LICENSE", "agents", "scripts", "references", "assets"}
 SKILL_EXCLUDED = {"scripts/package_release.py", "scripts/release_audit.py"}

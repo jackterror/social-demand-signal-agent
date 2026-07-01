@@ -5,12 +5,14 @@
       "id": 1,
       "name": "configure-new-company",
       "prompt": "Set this up for my bookkeeping software. We serve independent design studios that lose Fridays to manually reconciling invoices. We offer a 20-minute workflow review. Do not claim we eliminate errors. Monitor Reddit and X for people asking how to fix manual reconciliation.",
-      "expected_output": "A complete company profile with the supplied company context translated into pain points, intent signals, queries, approved and forbidden claims, disclosure, safety rules, response families, and experiment events. The agent validates the profile and does not collect live data until the user confirms it.",
+      "expected_output": "A guided setup plan or completed profile with industry, website, audience, pain points, intent signals, queries, approved and forbidden claims, disclosure, safety rules, response families, and experiment events. The agent validates readiness, keeps credentials outside the profile, and does not collect live data until the user confirms it.",
       "files": [],
       "assertions": [
         "Creates or updates a valid company profile",
+        "Uses guided setup instead of requiring manual JSON editing",
         "Preserves the forbidden error-elimination claim",
         "Requires affiliation disclosure",
+        "Keeps provider credentials outside the profile",
         "Does not start autonomous posting"
       ]
     },

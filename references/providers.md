@@ -1,29 +1,21 @@
 # Provider Contract
 
-Every provider must return normalized records with:
-
-- `id`
-- `source_type`
-- `data_label`
-- `platform`
-- `source_url`
-- `author`
-- `published_at`
-- `query`
-- `text`
-- `raw`
-
-## Labels
-
-- `observed`: retrieved from a live source or supplied as real input.
-- `fixture`: synthetic data used for tests and demonstrations.
+Every provider returns normalized records with `id`, `source_type`, `data_label`, `platform`, `source_url`, `author`, `published_at`, `query`, `text`, and `raw`.
 
 ## Current adapters
 
-- `fixture`: Reads a JSON array and labels every record as fixture data.
-- `json`: Reads a JSON array or common result envelope and labels records as observed.
-- `socialcrawl`: Uses the configured queries and platforms with the live provider endpoint.
+- `fixture`: Synthetic records for tests and demonstrations.
+- `json`: Imported observed records from a JSON array or common result envelope.
+- `socialcrawl`: Live search using the configured queries and platform identifiers.
 
-The live adapter requires a source URL before a record should be used for public-response review. If a provider returns summaries without verifiable source URLs, retain them for research only or suppress them.
+The live adapter requires a source URL before a record enters public-response review. Suppress summaries that cannot be traced to a current source.
 
-Do not infer that a platform works because it appears in a provider menu. Test current records, timestamps, text, and source URLs before documenting support.
+## SocialCrawl credential
+
+Create a key through the [SocialCrawl dashboard](https://www.socialcrawl.dev/) and review its [authentication documentation](https://www.socialcrawl.dev/docs/authentication).
+
+The local Setup page stores `SOCIALCRAWL_API_KEY` in `.env`. A process environment value takes precedence. The application reports only whether a key exists and where it came from. It never returns the value to the browser.
+
+The connection test uses SocialCrawl's zero-credit balance endpoint. A successful test proves authentication, not coverage for every configured platform.
+
+Do not claim platform support because a platform appears in a menu. Test current records, timestamps, text, and source URLs before documenting operational support.

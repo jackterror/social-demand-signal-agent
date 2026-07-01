@@ -141,6 +141,16 @@ def collect_socialcrawl(
     return dedupe(signals)[:max_items], logs
 
 
+def test_socialcrawl(api_key: str) -> dict[str, Any]:
+    if not api_key:
+        raise ProviderError("SOCIALCRAWL_API_KEY is required for a connection test")
+    payload = socialcrawl_request("/credits/balance", api_key, timeout=15)
+    return {
+        "connected": bool(payload.get("success", True)),
+        "message": "SocialCrawl accepted the saved credential.",
+    }
+
+
 def dedupe(signals: list[dict[str, Any]]) -> list[dict[str, Any]]:
     seen: set[tuple[str, str]] = set()
     output: list[dict[str, Any]] = []

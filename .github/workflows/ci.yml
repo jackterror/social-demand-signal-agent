@@ -18,7 +18,9 @@ jobs:
       - name: Compile Python
         run: python3 -m compileall -q scripts tests
       - name: Check browser JavaScript
-        run: node --check assets/app.js
+        run: |
+          node --check assets/app.js
+          node --check tools/capture-release-assets.mjs
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
       - name: Audit release tree

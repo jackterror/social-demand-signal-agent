@@ -2,6 +2,8 @@
 
 Social Demand Signal Agent is an agentic social listening system that finds customer pain and buying intent, drafts human-reviewed A/B responses, and learns from tracked outcomes.
 
+A guided local setup turns company context into operating policy. Each installer defines the industry, audience, customer language, offer, disclosure, claims, exclusions, escalation rules, listening queries, message hypotheses, and outcome events before a live run can begin. Provider credentials stay in a local `.env` file and never enter the company profile or browser state.
+
 The package connects work that often lives in separate tools:
 
 - listening for customer pain and buying intent

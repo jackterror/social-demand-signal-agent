@@ -9,7 +9,7 @@ import sys
 from typing import Iterable
 
 
-EXCLUDED_PARTS = {".git", "dist", "runtime", "__pycache__", "eval-workspace"}
+EXCLUDED_PARTS = {".git", "dist", "runtime", "__pycache__", "eval-workspace", "node_modules"}
 SECRET_PATTERNS = (
     re.compile(r"(?i)(api[_-]?key|secret|token)\s*[=:]\s*['\"]?[A-Za-z0-9_-]{20,}"),
     re.compile(r"sc_[A-Za-z0-9]{24,}"),
@@ -58,12 +58,18 @@ def audit(root: pathlib.Path, forbidden: list[str]) -> dict[str, object]:
         "SKILL.md",
         "README.md",
         "LICENSE",
+        ".env.example",
+        "package.json",
         "CHANGELOG.md",
         "PACKAGE-DESCRIPTION.md",
         "CREATOR.md",
         "SOURCES.md",
         "CONTRIBUTING.md",
         "SECURITY.md",
+        "GITHUB-PUBLISHING.md",
+        "RELEASE-NOTES.md",
+        "tools/capture-release-assets.mjs",
+        "docs/social-preview.html",
         "scripts/signal_agent.py",
         "assets/company-profile.schema.json",
     ]
