@@ -1,0 +1,45 @@
+{
+  "skill_name": "social-demand-signal-agent",
+  "evals": [
+    {
+      "id": 1,
+      "name": "configure-new-company",
+      "prompt": "Set this up for my bookkeeping software. We serve independent design studios that lose Fridays to manually reconciling invoices. We offer a 20-minute workflow review. Do not claim we eliminate errors. Monitor Reddit and X for people asking how to fix manual reconciliation.",
+      "expected_output": "A complete company profile with the supplied company context translated into pain points, intent signals, queries, approved and forbidden claims, disclosure, safety rules, response families, and experiment events. The agent validates the profile and does not collect live data until the user confirms it.",
+      "files": [],
+      "assertions": [
+        "Creates or updates a valid company profile",
+        "Preserves the forbidden error-elimination claim",
+        "Requires affiliation disclosure",
+        "Does not start autonomous posting"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "review-and-draft-signals",
+      "prompt": "Use the configured profile and the JSON signals in assets/fixtures/signals.json. Prepare the review queue, suppress irrelevant records, escalate sensitive records, and draft both experiment variants for eligible records.",
+      "expected_output": "A routed queue with deterministic assignments, no drafts for suppressed or escalated signals, two governed variants for eligible signals, and an importable agent-results JSON object.",
+      "files": ["assets/fixtures/signals.json"],
+      "assertions": [
+        "Preserves preassigned variants",
+        "Returns draft, suppress, or escalate for every candidate",
+        "Drafts both A and B for eligible signals",
+        "Uses approved claims and disclosure",
+        "Does not post a response"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "interpret-experiment",
+      "prompt": "Review the current experiment report. Tell me what is winning, what is only directional, and what should change in the next run. Do not treat fixture events as real outcomes.",
+      "expected_output": "A message-family and platform-specific interpretation that distinguishes insufficient, directional, and validated results, excludes fixture outcomes, and refuses to name a winner before the configured threshold and uncertainty checks pass.",
+      "files": [],
+      "assertions": [
+        "Excludes fixture outcomes",
+        "Separates results by family and platform",
+        "Does not call a directional leader a winner",
+        "Checks the guardrail event before recommending promotion"
+      ]
+    }
+  ]
+}

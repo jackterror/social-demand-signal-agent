@@ -1,0 +1,47 @@
+[
+  {
+    "id": "demo-queue-1",
+    "platform": "reddit",
+    "url": "https://example.com/community/queue-1",
+    "author": "ops-lead",
+    "published_at": "2026-06-30T19:10:00+00:00",
+    "query": "support queue keeps growing",
+    "text": "Our support queue keeps growing and manual ticket triage is eating the whole morning. Has anyone fixed this without adding another coordinator?"
+  },
+  {
+    "id": "demo-missed-1",
+    "platform": "twitter",
+    "url": "https://example.com/social/missed-1",
+    "author": "product-builder",
+    "published_at": "2026-06-30T19:18:00+00:00",
+    "query": "missing customer messages",
+    "text": "We keep missing customer messages because requests land in three different places. I need a shared inbox that the whole team can trust."
+  },
+  {
+    "id": "demo-search-1",
+    "platform": "youtube",
+    "url": "https://example.com/video/comments/search-1",
+    "author": "support-manager",
+    "published_at": "2026-06-30T19:24:00+00:00",
+    "query": "looking for a shared customer inbox",
+    "text": "Looking for a support tool for a five-person team. Can anyone recommend a help desk that keeps setup simple?"
+  },
+  {
+    "id": "demo-excluded-1",
+    "platform": "reddit",
+    "url": "https://example.com/community/excluded-1",
+    "author": "researcher",
+    "published_at": "2026-06-30T19:31:00+00:00",
+    "query": "manual ticket triage",
+    "text": "Student assignment seeking survey participants who have experience with manual ticket triage."
+  },
+  {
+    "id": "demo-escalate-1",
+    "platform": "twitter",
+    "url": "https://example.com/social/escalate-1",
+    "author": "concerned-customer",
+    "published_at": "2026-06-30T19:35:00+00:00",
+    "query": "support queue keeps growing",
+    "text": "Our old support system may have exposed customer records in a data leak. The support queue keeps growing while the team investigates."
+  }
+]

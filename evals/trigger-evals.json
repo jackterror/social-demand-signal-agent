@@ -1,0 +1,22 @@
+[
+  {"query": "Set up social listening for people complaining that expense reports take all Friday, then draft two replies for review", "should_trigger": true},
+  {"query": "Can you watch Reddit and X for people actively looking to replace their project-management tool?", "should_trigger": true},
+  {"query": "Build me a human-reviewed reply queue from public product complaints", "should_trigger": true},
+  {"query": "Find buying intent in these public posts and test an empathy-first reply against a utility-first one", "should_trigger": true},
+  {"query": "I want to monitor competitor frustration and learn which response gets qualified demos", "should_trigger": true},
+  {"query": "run the demand signal workflow for my company", "should_trigger": true},
+  {"query": "Help us listen for customer pain in TikTok comments without auto-posting", "should_trigger": true},
+  {"query": "Turn this JSON export of forum posts into a governed outreach review queue", "should_trigger": true},
+  {"query": "Which of our public-response templates is winning by audience pain point?", "should_trigger": true},
+  {"query": "we need a compliant social response experiment with human approval", "should_trigger": true},
+  {"query": "Write one launch announcement for LinkedIn", "should_trigger": false},
+  {"query": "Summarize sentiment in this customer survey", "should_trigger": false},
+  {"query": "Schedule our approved posts for next week", "should_trigger": false},
+  {"query": "Build an email lifecycle campaign for trial users", "should_trigger": false},
+  {"query": "Reply to this one customer support ticket", "should_trigger": false},
+  {"query": "Create a competitor positioning matrix from these websites", "should_trigger": false},
+  {"query": "Analyze our paid social ad performance", "should_trigger": false},
+  {"query": "Scrape private profiles and send them unsolicited direct messages", "should_trigger": false},
+  {"query": "Rewrite this landing page headline with two options", "should_trigger": false},
+  {"query": "Export our CRM contacts to a spreadsheet", "should_trigger": false}
+]

@@ -1,0 +1,55 @@
+{
+  "results": [
+    {
+      "signal_id": "demo-queue-1",
+      "action": "draft",
+      "data_label": "fixture",
+      "variants": {
+        "a": {
+          "body": "That backlog sounds expensive in team time. I work with RelayDesk. It puts customer messages into one shared queue so teams can review the workflow before deciding on a pilot: https://example.com/relaydesk/pilot",
+          "rationale": "Acknowledges the stated burden before offering a relevant next step.",
+          "guardrails": ["affiliation disclosed", "no outcome guarantee"]
+        },
+        "b": {
+          "body": "One option is to consolidate the incoming messages before changing staffing. I work with RelayDesk, which organizes customer messages in one shared queue. The workflow is here: https://example.com/relaydesk/pilot",
+          "rationale": "Leads with the workflow change and keeps the product claim within the profile.",
+          "guardrails": ["affiliation disclosed", "approved claim only"]
+        }
+      }
+    },
+    {
+      "signal_id": "demo-missed-1",
+      "action": "draft",
+      "data_label": "fixture",
+      "variants": {
+        "a": {
+          "body": "Three inboxes make ownership hard to see. I work with RelayDesk. It gives the team one shared queue, and you can review the workflow here: https://example.com/relaydesk/pilot",
+          "rationale": "Reflects the operating problem without promising a result.",
+          "guardrails": ["affiliation disclosed", "no absolute claim"]
+        },
+        "b": {
+          "body": "A shared queue may be the simplest first test. I work with RelayDesk, which organizes customer messages in one place. Here is the pilot workflow: https://example.com/relaydesk/pilot",
+          "rationale": "Starts with the requested utility and uses an approved product claim.",
+          "guardrails": ["affiliation disclosed", "approved claim only"]
+        }
+      }
+    },
+    {
+      "signal_id": "demo-search-1",
+      "action": "draft",
+      "data_label": "fixture",
+      "variants": {
+        "a": {
+          "body": "For five people, I would start by checking how ownership and handoffs work before comparing feature lists. I work with RelayDesk. You can review its shared-queue workflow here: https://example.com/relaydesk/pilot",
+          "rationale": "Answers the evaluation need before introducing the product.",
+          "guardrails": ["affiliation disclosed", "no unsupported comparison"]
+        },
+        "b": {
+          "body": "RelayDesk is built around one shared customer-message queue. I work with the team, so treat that as disclosed context. The pilot workflow is here if it fits your five-person setup: https://example.com/relaydesk/pilot",
+          "rationale": "Provides a direct fit statement while making affiliation explicit.",
+          "guardrails": ["affiliation disclosed", "qualified fit language"]
+        }
+      }
+    }
+  ]
+}

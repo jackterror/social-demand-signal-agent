@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Social Demand Signal Agent</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Social Demand Signal Agent</p>
+      <h1 id="company-name">Loading</h1>
+    </div>
+    <nav class="tabs" aria-label="Views">
+      <button class="tab active" data-view="queue">Review Queue</button>
+      <button class="tab" data-view="experiments">Experiments</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="status-band" aria-label="Summary">
+      <div class="metric"><span>Signals</span><strong id="metric-total">0</strong></div>
+      <div class="metric"><span>Reviewable</span><strong id="metric-reviewable">0</strong></div>
+      <div class="metric"><span>Drafted</span><strong id="metric-drafted">0</strong></div>
+      <div class="metric"><span>Approved</span><strong id="metric-approved">0</strong></div>
+      <div class="metric"><span>Escalated</span><strong id="metric-escalated">0</strong></div>
+    </section>
+
+    <section id="error-banner" class="error-banner hidden" role="alert"></section>
+
+    <section id="queue-view" class="view active">
+      <div class="control-band">
+        <label>Provider
+          <select id="provider-select">
+            <option value="fixture">Fixture</option>
+            <option value="json">JSON import</option>
+            <option value="socialcrawl">SocialCrawl</option>
+          </select>
+        </label>
+        <label class="source-field">JSON source path
+          <input id="source-input" type="text" placeholder="/path/to/signals.json">
+        </label>
+        <button id="collect-button" class="button approve">Collect</button>
+        <button id="export-button" class="button secondary">Export Agent Batch</button>
+        <span id="control-status" class="control-status"></span>
+      </div>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Human Review</p>
+          <h2>Review Queue</h2>
+        </div>
+        <button id="refresh-button" class="button secondary">Refresh</button>
+      </div>
+      <div id="queue" class="queue" aria-live="polite"></div>
+    </section>
+
+    <section id="experiments-view" class="view">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Observed Outcomes</p>
+          <h2>Experiment Readout</h2>
+        </div>
+        <div class="event-key"><span id="primary-event"></span><span id="guardrail-event"></span></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Family</th><th>Platform</th><th>Status</th><th>A exposed</th><th>A rate</th><th>B exposed</th><th>B rate</th><th>Leader</th><th>Winner</th>
+            </tr>
+          </thead>
+          <tbody id="experiment-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <template id="signal-template">
+    <article class="signal">
+      <div class="signal-meta">
+        <div class="badges"></div>
+        <a class="source-link" target="_blank" rel="noopener noreferrer">Original source</a>
+      </div>
+      <p class="signal-text"></p>
+      <div class="signal-details">
+        <span class="author"></span><span class="family"></span><span class="score"></span><span class="data-label"></span>
+      </div>
+      <div class="draft-panel hidden">
+        <div class="assigned-row"><span>Assigned variant</span><strong class="assigned-variant"></strong></div>
+        <textarea class="draft-body" rows="5"></textarea>
+        <details>
+          <summary>Alternate and rationale</summary>
+          <div class="alternate-copy"></div>
+          <p class="rationale"></p>
+        </details>
+      </div>
+      <div class="actions"></div>
+      <p class="decision-note"></p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

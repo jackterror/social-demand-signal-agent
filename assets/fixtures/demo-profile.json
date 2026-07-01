@@ -1,0 +1,98 @@
+{
+  "profile_status": "demo",
+  "company": {
+    "name": "RelayDesk",
+    "product": "shared customer-message workspace",
+    "description": "RelayDesk helps small support teams organize customer messages in one queue."
+  },
+  "audience": {
+    "description": "support leaders at small software companies",
+    "pain_points": [
+      "support queue keeps growing",
+      "missing customer messages",
+      "manual ticket triage",
+      "support reporting takes hours"
+    ],
+    "intent_signals": [
+      "looking for a support tool",
+      "need a shared inbox",
+      "recommend a help desk",
+      "replace our ticket system"
+    ]
+  },
+  "offer": {
+    "summary": "View the workflow and decide whether a pilot is useful.",
+    "cta_url": "https://example.com/relaydesk/pilot"
+  },
+  "voice": {
+    "attributes": [
+      "plain",
+      "helpful",
+      "specific"
+    ]
+  },
+  "disclosure": "I work with RelayDesk.",
+  "claims": {
+    "approved": [
+      "RelayDesk organizes customer messages in one shared queue",
+      "Teams can review the workflow before starting a pilot"
+    ],
+    "forbidden": [
+      "guaranteed response-time improvement",
+      "zero missed messages",
+      "works with every service"
+    ]
+  },
+  "safety": {
+    "exclusions": [
+      "job opening",
+      "student assignment",
+      "survey participant"
+    ],
+    "escalation_terms": [
+      "data leak",
+      "security breach",
+      "legal action"
+    ],
+    "max_responses_per_author_24h": 1
+  },
+  "listening": {
+    "queries": [
+      "support queue keeps growing",
+      "looking for a shared customer inbox",
+      "manual ticket triage"
+    ],
+    "platforms": [
+      "reddit",
+      "twitter",
+      "youtube"
+    ],
+    "freshness_minutes": 60,
+    "max_items": 50
+  },
+  "response_families": [
+    {
+      "name": "queue overload",
+      "signals": ["queue keeps growing", "ticket backlog"],
+      "hypothesis_a": "An empathy-first opening will improve qualified actions.",
+      "hypothesis_b": "A workflow-first opening will improve qualified actions."
+    },
+    {
+      "name": "missed messages",
+      "signals": ["missing customer messages", "missed messages"],
+      "hypothesis_a": "Acknowledging the operational cost will improve qualified actions.",
+      "hypothesis_b": "Leading with queue consolidation will improve qualified actions."
+    },
+    {
+      "name": "tool search",
+      "signals": ["looking for a support tool", "need a shared inbox", "recommend a help desk"],
+      "hypothesis_a": "A question-led response will improve qualified actions.",
+      "hypothesis_b": "A direct product-fit response will improve qualified actions."
+    }
+  ],
+  "experiment": {
+    "primary_event": "qualified_action",
+    "guardrail_event": "negative_feedback",
+    "minimum_sample_size": 30
+  }
+}

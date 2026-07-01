@@ -1,0 +1,70 @@
+{
+  "profile_status": "demo",
+  "company": {
+    "name": "Replace with your company",
+    "product": "Replace with your product or service",
+    "description": "Replace with a factual description of what you provide."
+  },
+  "audience": {
+    "description": "Replace with the people or teams you serve.",
+    "pain_points": [
+      "replace with a phrase customers use when describing the problem"
+    ],
+    "intent_signals": [
+      "replace with a phrase that signals active interest or need"
+    ]
+  },
+  "offer": {
+    "summary": "Replace with the next step you can honestly offer.",
+    "cta_url": "https://example.com/start"
+  },
+  "voice": {
+    "attributes": [
+      "clear",
+      "direct"
+    ]
+  },
+  "disclosure": "Replace with a plain affiliation disclosure.",
+  "claims": {
+    "approved": [
+      "replace with a claim your team has approved"
+    ],
+    "forbidden": [
+      "replace with a claim the system must never make"
+    ]
+  },
+  "safety": {
+    "exclusions": [
+      "replace with content that is irrelevant to outreach"
+    ],
+    "escalation_terms": [
+      "replace with a topic that requires specialist review"
+    ],
+    "max_responses_per_author_24h": 1
+  },
+  "listening": {
+    "queries": [
+      "replace with a search query"
+    ],
+    "platforms": [
+      "reddit"
+    ],
+    "freshness_minutes": 60,
+    "max_items": 50
+  },
+  "response_families": [
+    {
+      "name": "general need",
+      "signals": [
+        "replace with a routing phrase"
+      ],
+      "hypothesis_a": "State what Variant A changes and why.",
+      "hypothesis_b": "State what Variant B changes and why."
+    }
+  ],
+  "experiment": {
+    "primary_event": "qualified_action",
+    "guardrail_event": "negative_feedback",
+    "minimum_sample_size": 30
+  }
+}
