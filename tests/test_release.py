@@ -27,6 +27,8 @@ class ReleaseTests(unittest.TestCase):
         self.assertIn("Get a SocialCrawl key", html)
         self.assertIn("clientErrors", js)
         self.assertIn("updateCollectAvailability", js)
+        self.assertIn('demo ? "Fixture"', js)
+        self.assertIn('demo ? "Demo ready"', js)
 
     def test_frontend_has_accessible_setup_contracts(self) -> None:
         html = (ROOT / "assets/index.html").read_text()

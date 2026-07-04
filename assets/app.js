@@ -151,8 +151,8 @@ function renderSetup(payload, populate = true) {
   const readiness = payload.readiness;
   const demo = readiness.profile_status === "demo";
   statusTone(el("profile-readiness"), readiness.profile_ready || demo, demo ? "Demo loaded" : readiness.profile_ready ? "Ready" : "Needs setup");
-  statusTone(el("provider-readiness"), readiness.provider_ready, readiness.provider_ready ? "Configured" : "Missing key");
-  statusTone(el("listening-readiness"), readiness.ready_to_listen, readiness.ready_to_listen ? "Ready" : "Blocked");
+  statusTone(el("provider-readiness"), readiness.provider_ready || demo, demo ? "Fixture" : readiness.provider_ready ? "Configured" : "Missing key");
+  statusTone(el("listening-readiness"), readiness.ready_to_listen || demo, demo ? "Demo ready" : readiness.ready_to_listen ? "Ready" : "Blocked");
   const provider = payload.provider;
   el("provider-state").textContent = provider.connection_state.replace("_", " ");
   el("provider-state").className = `status-text ${provider.connection_state === "connected" ? "ready" : provider.connection_state === "failed" ? "not-ready" : ""}`;

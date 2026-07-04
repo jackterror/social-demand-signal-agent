@@ -10,7 +10,10 @@
 
 ## Before publishing
 
-- [ ] Run the full test suite without skipped server tests.
+- [x] Create the public repository with fresh history and preserve launcher permissions.
+- [x] Push `main` after Jack's approval.
+- [x] Confirm the initial GitHub Actions CI run is green.
+- [x] Run the local unit, integration, clean-install, browser, archive, link, secret, and provenance checks.
 - [x] Run Agent Skills validation.
 - [x] Complete the clean-install and archive audits.
 - [x] Confirm release screenshots contain fixture data and no credentials.
@@ -20,9 +23,10 @@
 - [ ] Run one authenticated SocialCrawl connection and current-source contract check.
 - [x] Confirm the Git author and commit messages.
 - [x] Review README links and commands from the source archive.
-- [ ] Create the repository only after Jack approves.
-- [ ] Push `main` only after Jack approves.
-- [ ] Create the release only after Jack approves.
+- [ ] Add the repository website, topics, and social preview.
+- [ ] Confirm CI is green on the final release commit.
+- [x] Obtain Jack's approval to create the release.
+- [ ] Publish and verify the `v0.1.0` release and both downloads.
 
 ## Release files
 

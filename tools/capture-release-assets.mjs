@@ -161,6 +161,8 @@ try {
   await page.reload({waitUntil: "networkidle"});
   await page.getByRole("button", {name: "Review Queue"}).click();
   await assertText(page.getByRole("heading", {name: "Review Queue"}), "Review Queue", "Populated review state");
+  await page.waitForFunction(() => document.querySelector("#metric-total")?.textContent.trim() === "5");
+  await page.waitForFunction(() => document.querySelectorAll("#queue .signal").length === 5);
   await assertNoHorizontalOverflow(page, "Desktop review queue");
   await page.screenshot({path: path.join(output, "review-queue.png")});
 
