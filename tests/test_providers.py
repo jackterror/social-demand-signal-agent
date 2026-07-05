@@ -52,21 +52,22 @@ class ProviderTests(unittest.TestCase):
     @mock.patch("urllib.request.urlopen")
     def test_socialcrawl_contract(self, urlopen: mock.Mock) -> None:
         urlopen.return_value = FakeResponse({
-            "platform": "forum",
-            "data": {"items": [{"id": "live-1", "url": "https://example.com/live-1", "text": "Looking for a better shared support queue"}]},
+            "data": {"items": [{"title": "Shared support queues", "source_items": [{"id": "live-1", "source": "reddit", "url": "https://example.com/live-1", "text": "Looking for a better shared support queue"}]}]},
         })
-        rows, logs = collect_socialcrawl("test-key", ["shared support queue"], ["forum"], 10)
+        rows, logs = collect_socialcrawl("test-key", ["shared support queue"], ["reddit", "twitter"], 10)
         self.assertEqual(rows[0]["source_type"], "socialcrawl")
         self.assertEqual(rows[0]["data_label"], "observed")
+        request = urlopen.call_args.args[0]
+        self.assertEqual(request.method, "GET")
+        self.assertIn("sources=reddit%2Cx", request.full_url)
         self.assertTrue(logs)
 
     @mock.patch("urllib.request.urlopen")
     def test_socialcrawl_drops_records_without_source_url(self, urlopen: mock.Mock) -> None:
         urlopen.return_value = FakeResponse({
-            "platform": "forum",
-            "data": {"items": [{"id": "summary-only", "text": "Looking for a better shared support queue"}]},
+            "data": {"items": [{"source_items": [{"id": "summary-only", "source": "reddit", "text": "Looking for a better shared support queue"}]}]},
         })
-        rows, _ = collect_socialcrawl("test-key", ["shared support queue"], ["forum"], 10)
+        rows, _ = collect_socialcrawl("test-key", ["shared support queue"], ["reddit"], 10)
         self.assertEqual(rows, [])
 
     @mock.patch("urllib.request.urlopen")

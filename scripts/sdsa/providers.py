@@ -77,6 +77,26 @@ def extract_items(data: Any) -> list[dict[str, Any]]:
     return flattened
 
 
+def extract_everywhere_records(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    data = payload.get("data") if isinstance(payload.get("data"), dict) else {}
+    records: list[dict[str, Any]] = []
+    for item in data.get("items", []):
+        if not isinstance(item, dict):
+            continue
+        source_items = item.get("source_items")
+        if not isinstance(source_items, list):
+            records.append(item)
+            continue
+        for source in source_items:
+            if not isinstance(source, dict):
+                continue
+            record = dict(source)
+            record.setdefault("text", first_present(item.get("text"), item.get("title"), item.get("snippet")))
+            record.setdefault("query", payload.get("query", ""))
+            records.append(record)
+    return records
+
+
 def load_json_records(path: pathlib.Path, data_label: str = "observed") -> list[dict[str, Any]]:
     if not path.exists():
         raise ProviderError(f"Input file not found: {path}")
@@ -126,13 +146,11 @@ def collect_socialcrawl(
         payload = socialcrawl_request(
             "/search/everywhere",
             api_key,
-            method="POST",
-            body={"query": query, "platforms": platforms, "limit": max_items},
+            params={"query": query, "sources": ",".join("x" if item.lower() == "twitter" else item.lower() for item in platforms)},
         )
-        platform = str(payload.get("platform") or "socialcrawl")
-        records = extract_items(payload.get("data"))
+        records = extract_everywhere_records(payload)
         for record in records:
-            record.setdefault("platform", platform)
+            record.setdefault("platform", first_present(record.get("source"), payload.get("platform"), "socialcrawl"))
             record.setdefault("query", query)
             normalized = normalize_record(record, "socialcrawl", "observed")
             if normalized and normalized.get("source_url"):

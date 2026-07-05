@@ -6,7 +6,7 @@ Every provider returns normalized records with `id`, `source_type`, `data_label`
 
 - `fixture`: Synthetic records for tests and demonstrations.
 - `json`: Imported observed records from a JSON array or common result envelope.
-- `socialcrawl`: Live search using the configured queries and platform identifiers.
+- `socialcrawl`: Live search through SocialCrawl's `GET /v1/search/everywhere` endpoint using configured queries and source identifiers. `twitter` is normalized to `x`.
 
 The live adapter requires a source URL before a record enters public-response review. Suppress summaries that cannot be traced to a current source.
 
